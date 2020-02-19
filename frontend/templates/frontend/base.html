@@ -1,0 +1,50 @@
+{% load i18n %}
+{% load my_tags %}
+
+
+<a href="{% url 'cart_detail' %}">Go to cart</a>
+
+<hr>
+
+
+<div class="cart">
+    {% with total_items=cart|length %}
+        {% if cart|length > 0 %}
+            Your cart:
+            <a href="{% url "cart_detail" %}">
+            {{ total_items }} item{{ total_items|pluralize }},
+            ${{ cart.get_total_price }}
+            </a>
+            {% else %}
+            Your cart is empty.
+        {% endif %}
+    {% endwith %}
+</div>
+
+    {% block main %}
+
+
+
+    {% endblock %}
+
+    
+<!-- main-js -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+{% if messages %}
+    {% for message in messages %}
+
+    <script>
+        Swal.fire(
+                'Cool!',
+                '{{ message }}',
+                'success'
+        ) 
+    </script>
+
+    {% endfor %}
+{% endif %}
+
+
+    

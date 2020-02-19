@@ -1,0 +1,23 @@
+<div class="order-info">
+    <h3>Your order</h3>
+    <ul>
+    {% for line in cart %}
+    <li>
+    {{ line.quantity }}x {{ line.item.name }}
+    <span>${{ line.total_price }}</span>
+    </li>
+    {% endfor %}
+    </ul>
+    <p>Total: ${{ cart.get_total_price }}</p>
+    </div>
+
+
+
+
+<form action="{%  url 'order_add' %}"
+method="post">
+    {% csrf_token %}
+<input type="email" name='email'>
+
+<button type="submit">Place an order</button>
+</form>

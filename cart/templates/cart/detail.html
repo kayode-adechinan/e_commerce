@@ -1,0 +1,42 @@
+{% for line in cart %}
+
+<div>
+
+    {{line.item.name}}
+{{line.quantity}}
+{{line.item.id}}
+{{line.price}}
+{{line.total_price}}
+
+
+
+<form action="{%  url 'cart_add' %}" method="post">
+    {% csrf_token %}
+<input type="hidden" name='item_id' value="{{line.item.id}}">
+<input type="number" name='quantity' value="{{line.quantity}}">
+<input type="hidden" name='update' value="1">
+
+
+<button type="submit">Update</button>
+</form>
+
+
+
+
+<a href="{% url 'cart_remove' line.item.id %}">Remove</a>
+
+</div>
+
+
+
+
+
+{% endfor %}
+
+Total in cart
+{{ cart.get_total_price }}
+
+
+<a href="{% url "item_list" %}" class="button
+light">Continue shopping</a>
+<a href="{% url "order_add" %}" class="button">Checkout</a>

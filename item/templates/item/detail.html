@@ -1,0 +1,25 @@
+{% extends 'frontend/base.html' %}
+
+
+{% block main %}
+
+<img src="{{item.image.url}}" alt="car-item" /> <br>
+
+<span>{{item.name | truncatechars:15 }}</span> 
+
+${{item.price}} <br>
+
+
+
+<form action="{%  url 'cart_add' %}"
+method="post">
+    {% csrf_token %}
+<input type="hidden" name='item_id' value="{{item.id}}">
+<input type="number" name='quantity'>
+<input type="hidden" name='update' value="0">
+
+
+<button type="submit">Add to cart</button>
+</form>
+
+{% endblock %}

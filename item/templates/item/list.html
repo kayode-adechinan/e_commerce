@@ -1,0 +1,89 @@
+{% extends 'frontend/base.html' %}
+{% load i18n %}
+
+
+{% block main %}
+
+
+
+{% if items  %}
+<h2>Available Articles</h2>
+
+{% else %}
+
+<h2>Not found</h2>
+
+{% endif %}
+
+
+
+{% for item in items %}
+
+<img src="{{item.image.url}}" alt="car-item" /> <br>
+<a href="{% url "item_detail"  item.id  %}">{{item.name | truncatechars:15 }}</a>  <br>
+${{item.price}} <br>
+
+<span>{{item.category}}</span>
+{% endfor %}
+
+
+
+                    
+
+{% if is_paginated %}
+{% load my_tags %}
+<ul class="pagination">
+{% if page_obj.number == 1 %}
+    <li class="disabled"><span>⇤</span></li>
+{% else %}
+    <li><a class="page-link" href="?{% url_replace request 'page' 1 %}">⇤</a></li>
+{% endif %}
+{% if page_obj.has_previous %}
+    <li><a class="page-link" href="?{% url_replace request 'page' page_obj.previous_page_number %}">&laquo;</a></li>
+{% else %}
+    <li class="disabled"><span>&laquo;</span></li>
+{% endif %}
+{% for i in paginator|proper_paginate:page_obj.number %}
+    {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+    {% else %}
+        <li><a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a></li>
+    {% endif %}
+{% endfor %}
+{% if page_obj.has_next %}
+    <li><a class="page-link" href="?{% url_replace request 'page' page_obj.next_page_number %}">&raquo;</a></li>
+{% else %}
+    <li class="disabled"><span>&raquo;</span></li>
+{% endif %}
+{% if page_obj.number == paginator.num_pages %}
+    <li class="disabled"><span>⇥</span></li>
+{% else %}
+    <li><a class="page-link" href="?{% url_replace request 'page' paginator.num_pages %}">⇥</a></li>
+{% endif %}
+</ul>
+{% endif %}
+                        
+
+
+<hr>
+
+<h2>Filter</h2>
+
+<form action="/" method="get">
+
+
+    <input type="checkbox" id="skirts" value="Skirts" name="category" >
+    <label for="skirts"> Skirts</label><br>
+
+    <input type="checkbox" id='shoes' value="Shoes" name="category" >
+    <label for="shoes">SHoes</label><br>
+
+    <input type="submit" value="filter">
+    <a href="/">reset</a>
+
+
+</form>
+
+
+
+{% endblock %}

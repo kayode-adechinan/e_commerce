@@ -1,0 +1,26 @@
+[
+{
+  "model": "item.item",
+  "pk": 1,
+  "fields": {
+    "name": "Printed A-line Skirt",
+    "image": "item_images/product-11.jpg",
+    "price": 300,
+    "category":"Skirts"
+  }
+},
+
+{
+  "model": "item.item",
+  "pk": 2,
+  "fields": {
+    "name": "Heel strappy Sandals",
+    "image": "item_images/product-12.jpg",
+    "price": 500,
+    "category":"Shoes"
+  }
+}
+
+
+]
+
